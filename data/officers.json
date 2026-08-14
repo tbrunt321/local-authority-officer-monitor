@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-08-14T19:21:51+00:00",
+  "councils": [
+    {
+      "council": "Adur District Council",
+      "website": "https://www.adur-worthing.gov.uk/",
+      "checked_at": "2026-08-14T19:19:55+00:00",
+      "pages_checked": 0,
+      "errors": [
+        {
+          "error": "no such group"
+        }
+      ],
+      "roles": {}
+    },
+    {
+      "council": "Amber Valley Borough Council",
+      "website": "https://www.ambervalley.gov.uk/",
+      "checked_at": "2026-08-14T19:20:17+00:00",
+      "pages_checked": 20,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "Arun District Council",
+      "website": "https://www.arun.gov.uk/",
+      "checked_at": "2026-08-14T19:20:36+00:00",
+      "pages_checked": 0,
+      "errors": [
+        {
+          "error": "no such group"
+        }
+      ],
+      "roles": {}
+    },
+    {
+      "council": "Ashfield District Council",
+      "website": "https://www.ashfield.gov.uk/",
+      "checked_at": "2026-08-14T19:20:47+00:00",
+      "pages_checked": 20,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "Ashford Borough Council",
+      "website": "https://www.ashford.gov.uk/",
+      "checked_at": "2026-08-14T19:21:13+00:00",
+      "pages_checked": 20,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "Babergh District Council",
+      "website": "https://www.babergh.gov.uk/",
+      "checked_at": "2026-08-14T19:21:30+00:00",
+      "pages_checked": 20,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "Barnsley Borough Council",
+      "website": "https://www.barnsley.gov.uk/",
+      "checked_at": "2026-08-14T19:21:50+00:00",
+      "pages_checked": 20,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "Basildon Borough Council",
+      "website": "https://www.basildon.gov.uk/",
+      "checked_at": "2026-08-14T19:21:50+00:00",
+      "pages_checked": 0,
+      "errors": [
+        {
+          "url": "https://www.basildon.gov.uk/",
+          "error": "403 Client Error: Forbidden for url: https://www.basildon.gov.uk/"
+        }
+      ],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "London Borough of Barking and Dagenham",
+      "website": "https://www.lbbd.gov.uk/",
+      "checked_at": "2026-08-14T19:21:51+00:00",
+      "pages_checked": 0,
+      "errors": [
+        {
+          "url": "https://www.lbbd.gov.uk/",
+          "error": "403 Client Error: Forbidden for url: https://www.lbbd.gov.uk/"
+        }
+      ],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    },
+    {
+      "council": "London Borough of Barnet",
+      "website": "https://www.barnet.gov.uk/",
+      "checked_at": "2026-08-14T19:21:51+00:00",
+      "pages_checked": 1,
+      "errors": [],
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not found"
+        }
+      }
+    }
+  ]
+}
