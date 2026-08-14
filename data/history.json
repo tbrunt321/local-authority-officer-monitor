@@ -1,3 +1,34 @@
 {
-  "changes": []
+  "changes": [
+    {
+      "detected_at": "2026-08-14T20:00:52+00:00",
+      "council": "Ashfield District Council",
+      "role": "Monitoring Officer",
+      "previous_officer": "responsible for overseeing investigations",
+      "current_officer": "who is also the",
+      "previous_source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/fraud-and-corruption/",
+      "current_source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
+      "status": "Potential change - review source"
+    },
+    {
+      "detected_at": "2026-08-14T20:00:52+00:00",
+      "council": "Ashford Borough Council",
+      "role": "Chief Executive",
+      "previous_officer": "responsible for",
+      "current_officer": "This role supports the",
+      "previous_source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/chief-executive/",
+      "current_source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/",
+      "status": "Potential change - review source"
+    },
+    {
+      "detected_at": "2026-08-14T20:00:52+00:00",
+      "council": "Barnsley Borough Council",
+      "role": "Chief Executive",
+      "previous_officer": "Core Services",
+      "current_officer": "Sarah Norman OBE is",
+      "previous_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
+      "current_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
+      "status": "Potential change - review source"
+    }
+  ]
 }
