@@ -29,6 +29,15 @@
       "previous_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
       "current_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
       "status": "Potential change - review source"
+    },
+    {
+      "detected_at": "2026-08-14T20:07:19+00:00",
+      "council": "Barnsley Borough Council",
+      "role": "Chief Executive",
+      "previous_officer": "Sarah Norman OBE is",
+      "current_officer": "Norman OBE",
+      "status": "Confirmed change - review effective date",
+      "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/"
     }
   ]
 }

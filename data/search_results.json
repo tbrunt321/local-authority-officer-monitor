@@ -1,353 +1,323 @@
 {
-  "generated_at": "2026-08-14T20:00:52+00:00",
-  "monitor_version": "v5",
+  "generated_at": "2026-08-14T20:07:19+00:00",
+  "monitor_version": "v6",
   "councils_searched": 10,
   "results": [
     {
       "council": "Adur District Council",
-      "checked_at": "2026-08-14T19:58:57+00:00",
+      "checked_at": "2026-08-14T20:05:58+00:00",
+      "roles": {
+        "Chief Executive": {
+          "name": "is made up of",
+          "source": "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Senior management structure - Adur & Worthing Councils\nSkip to content\nTell us whether you accept cookies\nWe use\ncookies to collect information\nabout how you use adur-worthing.gov.uk. We use this information to make the website work as well as possible and improve services.\nAccept additional cookies\nReject additional cookies\nCookie settings\nYou have accepted all cookies. You can change your\ncookie settings\nat any time.\nHide this message\nResidents\nBusinesses\nThe Councils\n(current)\nVisitors\nCounci"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
+        },
+        "Section 151 Officer": {
+          "name": "Emma Thomas FCCA",
+          "source": "https://www.adur-worthing.gov.uk/media/Media%2C170586%2Csmxx.pdf",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "\n  \n                       \n    \n        \n        \n  \n     \n       \n      \n       \n        \n     \n      \n       \n      \n     \n      \n      \n    \n         \n-\nA D U R D I S T R I C T C O U N C I L \nSTATEMENT OF ACCOUNTS \nfor the year ended 31st March, 2023 \nC O N T E N T S \nPAGE \nNarrative Report 3-27 \nStatement of Responsibilitiesfor the \nStatement of Accounts 28 \nMovement in Reserves Statement 29 \nComprehensive Income and Expenditure Statement 30 \nBalance Sheet 31 \nCash Flow Statement 32 \nNotes "
+        }
+      },
       "sources_checked": [
         "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/",
         "https://www.adur-worthing.gov.uk/media/Media%2C100071%2Csmxx.pdf",
-        "https://www.adur-worthing.gov.uk/media/Media%2C170586%2Csmxx.pdf",
-        "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/#directors",
-        "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/#chief-executive",
-        "https://www.adur-worthing.gov.uk/about-the-councils/finance/statement-of-accounts/",
-        "https://www.adur-worthing.gov.uk/report-website-problem/?problem-page-url=%2Fabout-the-councils%2Fsenior-management-structure%2F",
-        "https://www.adur-worthing.gov.uk/media/Media,100071,smxx.pdf",
-        "https://www.adur-worthing.gov.uk/email/?email-page-url=%2Fabout-the-councils%2Fsenior-management-structure%2F&email-page-to-address=news@adur-worthing.gov.uk&email-show-postal-address=&ra=",
-        "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/#wrapper",
-        "https://www.adur-worthing.gov.uk/about-the-councils/senior-management-structure/#page-content"
+        "https://www.adur-worthing.gov.uk/media/Media%2C170586%2Csmxx.pdf"
       ],
-      "errors": [],
-      "roles": {
-        "Chief Executive": {
-          "name": null,
-          "source": "https://www.adur-worthing.gov.uk/media/Media%2C170586%2Csmxx.pdf",
-          "confidence": "Conflicting evidence",
-          "candidates": [
-            "The salaries of the",
-            "of both Leaders with"
-          ]
-        },
-        "Monitoring Officer": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
-        },
-        "Section 151 Officer": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
-        }
-      }
+      "errors": []
     },
     {
       "council": "Amber Valley Borough Council",
-      "checked_at": "2026-08-14T19:59:04+00:00",
-      "sources_checked": [
-        "https://www.ambervalley.gov.uk/contact-us/key-manager-contacts/",
-        "https://www.ambervalley.gov.uk/",
-        "https://www.ambervalley.gov.uk/planning/development-management/view-a-planning-application/historic-decision-notices/",
-        "https://www.ambervalley.gov.uk/planning/development-management/view-a-planning-application/"
-      ],
-      "errors": [],
+      "checked_at": "2026-08-14T20:06:06+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Monitoring Officer": {
-          "name": "and Deputy",
-          "source": "https://www.ambervalley.gov.uk/contact-us/key-manager-contacts/",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
-          "name": "and Deputy",
-          "source": "https://www.ambervalley.gov.uk/contact-us/key-manager-contacts/",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
+      },
+      "sources_checked": [
+        "https://www.ambervalley.gov.uk/contact-us/key-manager-contacts/",
+        "https://www.ambervalley.gov.uk/"
+      ],
+      "errors": []
     },
     {
       "council": "Arun District Council",
-      "checked_at": "2026-08-14T19:59:32+00:00",
-      "sources_checked": [
-        "https://www.arun.gov.uk/our-management-teams",
-        "https://www.arun.gov.uk/constitution",
-        "https://www.arun.gov.uk/search?term=Chief Officers&type=category&catId=103",
-        "https://www.arun.gov.uk/search?term=Senior Management&type=category&catId=569",
-        "https://www.arun.gov.uk/search?term=Management&type=category&catId=564",
-        "https://www.arun.gov.uk/our-management-teams#main-content",
-        "https://www.arun.gov.uk/our-management-teams#container"
-      ],
-      "errors": [],
+      "checked_at": "2026-08-14T20:06:17+00:00",
       "roles": {
         "Chief Executive": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
+          "name": "Dawn Hudd",
+          "source": "https://www.arun.gov.uk/our-management-teams",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Dawn Hudd - Chief Executive"
         },
         "Monitoring Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
+      },
+      "sources_checked": [
+        "https://www.arun.gov.uk/our-management-teams",
+        "https://www.arun.gov.uk/constitution"
+      ],
+      "errors": []
     },
     {
       "council": "Ashfield District Council",
-      "checked_at": "2026-08-14T19:59:35+00:00",
-      "sources_checked": [
-        "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
-        "https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf",
-        "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/#main-heading",
-        "https://www.ashfield.gov.uk/media/tqufyprq/senior-management-structure-august-2026-accessible.pdf",
-        "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/"
-      ],
-      "errors": [
-        {
-          "url": "https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf",
-          "error": "404 Client Error: Not Found for url: https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf",
-          "used_proxy": false
-        }
-      ],
+      "checked_at": "2026-08-14T20:06:23+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Theresa Hodgkinson",
           "source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
-          "confidence": "High"
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Our chief executive is Theresa Hodgkinson."
         },
         "Monitoring Officer": {
-          "name": "who is also the",
-          "source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
+      },
+      "sources_checked": [
+        "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
+        "https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf"
+      ],
+      "errors": [
+        {
+          "url": "https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf",
+          "error": "404 Client Error: Not Found for url: https://www.ashfield.gov.uk/media/my3puoqp/anti-fraud-corruption-policy-oct-2017-a11y.pdf"
+        }
+      ]
     },
     {
       "council": "Ashford Borough Council",
-      "checked_at": "2026-08-14T19:59:53+00:00",
-      "sources_checked": [
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/chief-executive/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/deputy-chief-executive/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/chief-executive/#contentbody",
-        "https://www.ashford.gov.uk/media/rcrou2m3/0001-jan-2016-chief-executive.pdf",
-        "https://www.ashford.gov.uk/your-council/local-government-reorganisation-and-devolution/community-governance-review-cgr/",
-        "https://www.ashford.gov.uk/transparency/our-people/salary-information/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/head-of-policy-and-performance/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/head-of-economic-development/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/#contentbody",
-        "https://www.ashford.gov.uk/media/qo1cciul/1003-solicitor-to-the-council-and-monitoring-officer-april-2021.pdf",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/head-of-development/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/assistant-director-of-housing/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/",
-        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/deputy-chief-executive/#contentbody"
-      ],
-      "errors": [],
+      "checked_at": "2026-08-14T20:06:32+00:00",
       "roles": {
         "Chief Executive": {
-          "name": "This role supports the",
-          "source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Monitoring Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
-          "name": "Ben is also our",
-          "source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/deputy-chief-executive/",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
+      },
+      "sources_checked": [
+        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/chief-executive/",
+        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/",
+        "https://www.ashford.gov.uk/transparency/our-people/leadership-team/deputy-chief-executive/"
+      ],
+      "errors": []
     },
     {
       "council": "Babergh District Council",
-      "checked_at": "2026-08-14T20:00:00+00:00",
-      "sources_checked": [
-        "https://www.babergh.gov.uk/web/mid-suffolk/chief-executive-senior-leadership-team",
-        "https://www.babergh.gov.uk/about-the-council",
-        "https://www.babergh.gov.uk/web/mid-suffolk/chief-executive-senior-leadership-team#main-content",
-        "https://www.babergh.gov.uk/documents/d/asset-library-54706/elt-structure-chart",
-        "https://www.babergh.gov.uk/chief-executive-senior-leadership-team",
-        "https://www.babergh.gov.uk/finance"
-      ],
-      "errors": [],
+      "checked_at": "2026-08-14T20:06:39+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Arthur Charvonia",
           "source": "https://www.babergh.gov.uk/web/mid-suffolk/chief-executive-senior-leadership-team",
-          "confidence": "High"
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Arthur Charvonia, Chief Executive"
         },
         "Monitoring Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
-          "name": "the statutory position of",
-          "source": "https://www.babergh.gov.uk/web/mid-suffolk/chief-executive-senior-leadership-team",
-          "confidence": "High"
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
+      },
+      "sources_checked": [
+        "https://www.babergh.gov.uk/web/mid-suffolk/chief-executive-senior-leadership-team",
+        "https://www.babergh.gov.uk/about-the-council"
+      ],
+      "errors": []
     },
     {
       "council": "Barnsley Borough Council",
-      "checked_at": "2026-08-14T20:00:10+00:00",
+      "checked_at": "2026-08-14T20:06:50+00:00",
+      "roles": {
+        "Chief Executive": {
+          "name": "Norman OBE",
+          "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nBarnsley Register Office closed on Thursday 20 August 2026\nTemporary closures at some of our household waste recycling centres\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCouncil and democracy\nCouncil structure and leadership team\nGo back\nBack"
+        },
+        "Monitoring Officer": {
+          "name": "Core Services Andrew Perriman",
+          "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nBarnsley Register Office closed on Thursday 20 August 2026\nTemporary closures at some of our household waste recycling centres\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCouncil and democracy\nCouncil structure and leadership team\nGo back\nBack"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
+        }
+      },
       "sources_checked": [
         "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
         "https://www.barnsley.gov.uk/media/ng2j15fz/final-ags-2022-2023-published.pdf",
-        "https://www.barnsley.gov.uk/media/20vik2yg/draft-annual-governance-statement-2023-2024.pdf",
-        "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/?opt-in-translate=True",
-        "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/#start",
-        "https://www.barnsley.gov.uk/website-information/sign-in-to-other-accounts/"
+        "https://www.barnsley.gov.uk/media/20vik2yg/draft-annual-governance-statement-2023-2024.pdf"
       ],
-      "errors": [],
-      "roles": {
-        "Chief Executive": {
-          "name": "Sarah Norman OBE is",
-          "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
-          "confidence": "High"
-        },
-        "Monitoring Officer": {
-          "name": null,
-          "source": "https://www.barnsley.gov.uk/media/ng2j15fz/final-ags-2022-2023-published.pdf",
-          "confidence": "Conflicting evidence",
-          "candidates": [
-            "As the",
-            "Law and Governance and"
-          ]
-        },
-        "Section 151 Officer": {
-          "name": "As the Council’s designated",
-          "source": "https://www.barnsley.gov.uk/media/ng2j15fz/final-ags-2022-2023-published.pdf",
-          "confidence": "High"
-        }
-      }
+      "errors": []
     },
     {
       "council": "Basildon Borough Council",
-      "checked_at": "2026-08-14T20:00:38+00:00",
+      "checked_at": "2026-08-14T20:07:01+00:00",
+      "roles": {
+        "Chief Executive": {
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
+        },
+        "Monitoring Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
+        },
+        "Section 151 Officer": {
+          "name": null,
+          "source": null,
+          "confidence": "Not verified",
+          "status": "Not verified"
+        }
+      },
       "sources_checked": [
         "https://www3.basildon.gov.uk/jobs/jd/Whistleblowing%20Procedure.pdf",
         "https://www.basildon.gov.uk/"
       ],
-      "errors": [],
+      "errors": []
+    },
+    {
+      "council": "London Borough of Barking and Dagenham",
+      "checked_at": "2026-08-14T20:07:12+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Monitoring Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
-    },
-    {
-      "council": "London Borough of Barking and Dagenham",
-      "checked_at": "2026-08-14T20:00:46+00:00",
+      },
       "sources_checked": [
         "https://www.lbbd.gov.uk/council-and-democracy/performance-and-spending/council-structure",
         "https://www.lbbd.gov.uk/sites/default/files/2025-07/LBBD%20SoA%202024-25%20FINAL.pdf"
       ],
-      "errors": [],
+      "errors": []
+    },
+    {
+      "council": "London Borough of Barnet",
+      "checked_at": "2026-08-14T20:07:19+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Monitoring Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         },
         "Section 151 Officer": {
           "name": null,
           "source": null,
-          "confidence": "Not verified"
+          "confidence": "Not verified",
+          "status": "Not verified"
         }
-      }
-    },
-    {
-      "council": "London Borough of Barnet",
-      "checked_at": "2026-08-14T20:00:52+00:00",
+      },
       "sources_checked": [
         "https://www.barnet.gov.uk/your-council/barnet-council-management-structure",
         "https://barnet.moderngov.co.uk/documents/s86906/Article%2007%20-%20Officers.pdf"
       ],
-      "errors": [],
-      "roles": {
-        "Chief Executive": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
-        },
-        "Monitoring Officer": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
-        },
-        "Section 151 Officer": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified"
-        }
-      }
+      "errors": []
     }
   ],
   "potential_changes": [
     {
-      "detected_at": "2026-08-14T20:00:52+00:00",
-      "council": "Ashfield District Council",
-      "role": "Monitoring Officer",
-      "previous_officer": "responsible for overseeing investigations",
-      "current_officer": "who is also the",
-      "previous_source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/fraud-and-corruption/",
-      "current_source": "https://www.ashfield.gov.uk/your-council/councillors-council-meetings-and-governance/organisational-structure/",
-      "status": "Potential change - review source"
-    },
-    {
-      "detected_at": "2026-08-14T20:00:52+00:00",
-      "council": "Ashford Borough Council",
-      "role": "Chief Executive",
-      "previous_officer": "responsible for",
-      "current_officer": "This role supports the",
-      "previous_source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/chief-executive/",
-      "current_source": "https://www.ashford.gov.uk/transparency/our-people/leadership-team/solicitor-to-the-council-and-monitoring-officer/",
-      "status": "Potential change - review source"
-    },
-    {
-      "detected_at": "2026-08-14T20:00:52+00:00",
+      "detected_at": "2026-08-14T20:07:19+00:00",
       "council": "Barnsley Borough Council",
       "role": "Chief Executive",
-      "previous_officer": "Core Services",
-      "current_officer": "Sarah Norman OBE is",
-      "previous_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
-      "current_source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
-      "status": "Potential change - review source"
+      "previous_officer": "Sarah Norman OBE is",
+      "current_officer": "Norman OBE",
+      "status": "Confirmed change - review effective date",
+      "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/"
     }
   ]
 }
