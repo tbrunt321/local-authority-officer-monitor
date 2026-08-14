@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install the monitoring software
-       run: pip install requests beautifulsoup4 pypdf lxml
+        run: pip install requests beautifulsoup4 pypdf lxml
 
       - name: Run the council search
         run: python monitor.py
