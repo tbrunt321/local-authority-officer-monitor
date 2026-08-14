@@ -182,10 +182,10 @@ def clean_name(n):
 def extract_role(pages,role):
     role_re="|".join(ROLES[role]); findings=[]
     patterns=[
-        rf"(?:{role_re})\s+(?:is|:|-|–|—)\s+({NAME})",
-        rf"({NAME})\s+(?:is\s+)?(?:-|–|—|:|,)\s*(?:{role_re})",
-        rf"({NAME}),\s*(?:who\s+is\s+)?(?:the\s+)?(?:{role_re})",
-        rf"({NAME})\s*\((?:{role_re})\)",
+        rf"(?:{role_re})\s+(?:is|:|-|–|—)\s+(?P<name>{NAME})",
+        rf"(?P<name>{NAME})\s+(?:is\s+)?(?:-|–|—|:)\s*(?:{role_re})",
+        rf"(?P<name>{NAME}),\s*(?:who\s+is\s+)?(?:the\s+)?(?:{role_re})",
+        rf"(?P<name>{NAME})\s*\((?:{role_re})\)",
     ]
     for p in pages:
         t=p["text"]
@@ -196,7 +196,7 @@ def extract_role(pages,role):
             for pat in patterns:
                 m=re.search(pat,line,re.I)
                 if m:
-                    n=clean_name(m.group(1))
+                    n=clean_name(m.groupdict().get("name", m.group(0)))
                     if n:
                         findings.append((n,p["url"],"same-line"))
                         break
@@ -207,7 +207,7 @@ def extract_role(pages,role):
                     if near==line or len(near.split())>4: continue
                     m=re.fullmatch(NAME,near)
                     if m:
-                        n=clean_name(m.group(1))
+                        n=clean_name(m.groupdict().get("name", m.group(0)))
                         if n: findings.append((n,p["url"],"adjacent-line")); break
     if not findings:
         return {"name":None,"source":None,"confidence":"Not found"}
@@ -223,9 +223,19 @@ def scan(row):
     result={"council":row["council"],"website":row["website"],"checked_at":now(),
             "pages_checked":len(pages),"errors":errors,"roles":{}}
     for role in ROLES:
-        result["roles"][role]=extract_role(pages,role)
-        x=result["roles"][role]
-        print(" ",role,":",x["name"] or "Not found","[",x["confidence"],"]")
+        try:
+            result["roles"][role]=extract_role(pages,role)
+        except Exception as exc:
+            result["roles"][role]={
+                "name": None,
+                "source": None,
+                "confidence": "Error",
+                "error": str(exc)
+            }
+            print(" ",role,": ERROR -",exc)
+        else:
+            x=result["roles"][role]
+            print(" ",role,":",x["name"] or "Not found","[",x["confidence"],"]")
     return result
 
 def main():
