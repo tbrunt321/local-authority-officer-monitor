@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
 """
-Local Authority Statutory Officer Monitor - v3
+Local Authority Statutory Officer Monitor - v5
 
-Main improvements:
-- Uses council seed pages instead of relying on the homepage.
-- Discovers likely pages through sitemap.xml when available.
-- Reads PDF documents using pypdf.
-- Uses stronger role/name matching.
-- Records access errors without stopping the run.
-- Correctly handles the first run when no baseline exists.
-- Saves source URLs for every extracted officer.
+v5 is deliberately source-led for the first 10 councils.
+
+Instead of crawling a large number of arbitrary pages and guessing which
+nearby capitalised words are names, it:
+  1. Reads officer_sources.csv.
+  2. Checks the specified official council source pages/documents first.
+  3. Follows only a small number of highly relevant links from those sources.
+  4. Extracts a person only when the person's name is structurally associated
+     with the statutory role.
+  5. Uses a conservative "Not verified" result when the evidence is weak.
+  6. Keeps the official source URL with every result.
+  7. Supports HTML and PDF sources.
+  8. Uses a Jina Reader fallback only when a council blocks the GitHub runner.
+     The result still points to the original official council URL.
+
+This version is intentionally focused on the first 10 councils. Once these
+are reliable, the same source-led configuration can be expanded to all 317.
 """
 
-import csv, json, re, time, io
+import csv
+import io
+import json
+import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
@@ -21,260 +34,615 @@ import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
-BASE=Path(__file__).resolve().parent
-DATA=BASE/"data"; DATA.mkdir(exist_ok=True)
-COUNCILS=BASE/"councils.csv"
-OFFICERS=DATA/"officers.json"
-HISTORY=DATA/"history.json"
-RESULTS=DATA/"search_results.json"
+BASE = Path(__file__).resolve().parent
+DATA = BASE / "data"
+DATA.mkdir(exist_ok=True)
 
-HEADERS={
-    "User-Agent":"Mozilla/5.0 (compatible; LocalAuthorityOfficerMonitor/3.0)",
-    "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language":"en-GB,en;q=0.9"
+COUNCILS_FILE = BASE / "councils.csv"
+SOURCES_FILE = BASE / "officer_sources.csv"
+OFFICERS_FILE = DATA / "officers.json"
+RESULTS_FILE = DATA / "search_results.json"
+HISTORY_FILE = DATA / "history.json"
+
+TIMEOUT = 30
+MAX_FOLLOW_LINKS = 8
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; LocalAuthorityOfficerMonitor/5.0)",
+    "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.8",
+    "Accept-Language": "en-GB,en;q=0.9",
 }
-TIMEOUT=25
-MAX_PAGES=35
 
-ROLES={
-"Chief Executive":[r"\bchief executive\b",r"\bhead of paid service\b"],
-"Monitoring Officer":[r"\bmonitoring officer\b"],
-"Section 151 Officer":[r"\bsection\s*151\s*officer\b",r"\bsection\s*151\b",r"\bs\.?\s*151\s*officer\b",r"\bchief finance officer\b",r"\bchief financial officer\b"]
+ROLES = {
+    "Chief Executive": [
+        r"\bchief executive\b",
+        r"\bhead of paid service\b",
+    ],
+    "Monitoring Officer": [
+        r"\bmonitoring officer\b",
+        r"\bsolicitor to the council and monitoring officer\b",
+        r"\bhead of legal and monitoring officer\b",
+    ],
+    "Section 151 Officer": [
+        r"\bsection\s*151\s*officer\b",
+        r"\bs\.?\s*151\s*officer\b",
+        r"\bchief finance officer\b",
+        r"\bchief financial officer\b",
+        r"\bfinance director\b",
+    ],
 }
-NAME=r"[A-Z][A-Za-z'’\-]{1,30}(?:\s+[A-Z][A-Za-z'’\-]{1,30}){1,3}"
-BAD={
-"Chief Executive","Monitoring Officer","Section 151","Section 151 Officer",
-"Chief Finance Officer","Chief Financial Officer","Head Paid Service",
-"Executive Director","Senior Management","Senior Leadership","Management Team",
-"Corporate Management","Borough Councillor","District Councillor","City Council",
-"County Council","Local Authority","Worthing Councils","Council Offices",
-"Current Officer","Potential New Officer"
+
+# Strong name pattern. We only use this after finding an explicit role label.
+NAME = r"[A-Z][A-Za-z'’\-]{1,30}(?:\s+[A-Z][A-Za-z'’\-]{1,30}){1,3}"
+
+NON_NAMES = {
+    "Chief Executive", "Monitoring Officer", "Section 151 Officer",
+    "Chief Finance Officer", "Chief Financial Officer", "Head Paid Service",
+    "Executive Director", "Strategic Director", "Corporate Director",
+    "Senior Leadership Team", "Management Team", "Council Structure",
+    "Our People", "Contact Details", "Current Officer", "Not Found",
+    "Car Parks", "Emergency Planning", "Core Services", "Worthing Councils",
+    "responsible for", "responsible for overseeing investigations",
 }
-PRIORITY=("chief","executive","monitoring","section","s151","finance","officer",
-          "management","structure","constitution","governance","organisation",
-          "organisational","committee","senior","leadership","pay-policy",
-          "statement-of-accounts","annual-governance")
 
-def now(): return datetime.now(timezone.utc).isoformat(timespec="seconds")
+def now():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
-def save(path,obj):
-    path.write_text(json.dumps(obj,indent=2,ensure_ascii=False),encoding="utf-8")
-
-def load(path,default):
-    if not path.exists(): return default
-    try:return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:return default
-
-def get(url):
+def load_json(path, default):
+    if not path.exists():
+        return default
     try:
-        r=requests.get(url,headers=HEADERS,timeout=TIMEOUT,allow_redirects=True)
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return default
+
+def save_json(path, data):
+    path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+def normalise(url):
+    if not url:
+        return ""
+    return url.strip()
+
+def direct_get(url):
+    try:
+        r = requests.get(
+            url,
+            headers=HEADERS,
+            timeout=TIMEOUT,
+            allow_redirects=True,
+        )
         r.raise_for_status()
-        return r,None
-    except requests.RequestException as e:
-        return None,str(e)
+        return r, None
+    except requests.RequestException as exc:
+        return None, str(exc)
 
-def text_html(raw):
-    s=BeautifulSoup(raw,"html.parser")
-    for x in s(["script","style","noscript","svg"]): x.decompose()
-    return "\n".join(re.sub(r"\s+"," ",x).strip() for x in s.get_text("\n").splitlines() if x.strip())
+def get_with_fallback(url):
+    """
+    First try the official council URL directly.
+    If GitHub's runner is blocked, try Jina Reader as a transport fallback.
+    The evidence URL remains the official council URL.
+    """
+    r, error = direct_get(url)
+    if r is not None:
+        return r, None, False
 
-def text_pdf(content):
+    # Do not use the fallback for non-HTTP URLs.
+    if not url.startswith(("http://", "https://")):
+        return None, error, False
+
+    proxy = "https://r.jina.ai/" + url
     try:
-        reader=PdfReader(io.BytesIO(content))
-        return "\n".join((p.extract_text() or "") for p in reader.pages[:30])
+        pr = requests.get(proxy, headers=HEADERS, timeout=TIMEOUT)
+        pr.raise_for_status()
+
+        # Make a response-like object sufficient for downstream parsing.
+        class ProxyResponse:
+            status_code = pr.status_code
+            headers = {"content-type": "text/plain; charset=utf-8"}
+            text = pr.text
+            content = pr.content
+
+        return ProxyResponse(), None, True
+    except requests.RequestException:
+        return None, error, False
+
+def is_pdf(url, response):
+    ctype = response.headers.get("content-type", "").lower()
+    return "pdf" in ctype or url.lower().endswith(".pdf")
+
+def html_text(raw):
+    soup = BeautifulSoup(raw, "html.parser")
+    for x in soup(["script", "style", "noscript", "svg"]):
+        x.decompose()
+
+    lines = []
+    for x in soup.get_text("\n").splitlines():
+        x = re.sub(r"\s+", " ", x).strip()
+        if x:
+            lines.append(x)
+    return "\n".join(lines)
+
+def pdf_text(content):
+    try:
+        reader = PdfReader(io.BytesIO(content))
+        return "\n".join(
+            (page.extract_text() or "")
+            for page in reader.pages[:80]
+        )
     except Exception:
         return ""
 
-def is_pdf(url,response):
-    return "pdf" in response.headers.get("content-type","").lower() or url.lower().endswith(".pdf")
+def source_document(url):
+    response, error, used_proxy = get_with_fallback(url)
 
-def sitemap_urls(website):
-    base=website.rstrip("/")+"/"
-    candidates=[urljoin(base,"sitemap.xml"),urljoin(base,"robots.txt")]
-    found=[]
-    for u in candidates:
-        r,e=get(u)
-        if not r: continue
-        if u.endswith("robots.txt"):
-            for line in r.text.splitlines():
-                if line.lower().startswith("sitemap:"):
-                    found.append(line.split(":",1)[1].strip())
-        else:
-            try:
-                soup=BeautifulSoup(r.text,"xml")
-                for loc in soup.find_all("loc"):
-                    found.append(loc.get_text(strip=True))
-            except Exception: pass
-    # If the first sitemap is a sitemap index, fetch it too.
-    expanded=[]
-    for u in found:
-        if "sitemap" in u.lower() and u not in expanded:
-            r,e=get(u)
-            if r:
-                try:
-                    soup=BeautifulSoup(r.text,"xml")
-                    locs=[x.get_text(strip=True) for x in soup.find_all("loc")]
-                    expanded.extend(locs)
-                except Exception: pass
-    found.extend(expanded)
-    return list(dict.fromkeys(found))
+    if response is None:
+        return {
+            "url": url,
+            "text": "",
+            "error": error,
+            "used_proxy": False,
+        }
 
-def priority(url):
-    u=url.lower()
-    return sum(10 for x in PRIORITY if x in u)
+    if is_pdf(url, response):
+        text = pdf_text(response.content)
+        kind = "pdf"
+    else:
+        text = html_text(response.text)
+        kind = "html"
 
-def links(url,raw):
-    s=BeautifulSoup(raw,"html.parser"); host=urlparse(url).netloc.lower(); out=[]
-    for a in s.find_all("a",href=True):
-        u=urljoin(url,a["href"]); p=urlparse(u)
-        if p.scheme in ("http","https") and p.netloc.lower()==host:
-            if not any(x in u.lower() for x in ("login","logout","privacy","cookie")):
-                out.append(u)
-    return list(dict.fromkeys(out))
+    return {
+        "url": url,
+        "text": text,
+        "kind": kind,
+        "error": None,
+        "used_proxy": used_proxy,
+    }
 
-def crawl(row):
-    website=row["website"].strip()
-    seed=row.get("seed_url","").strip() or website
-    queue=[]
-    for u in (seed,website):
-        if u and u not in queue: queue.append(u)
+def relevant_links(source_url, raw_html):
+    """
+    Only discover links that look directly relevant to statutory officers.
+    This prevents the false positives produced by the old 35-page crawler.
+    """
+    soup = BeautifulSoup(raw_html, "html.parser")
+    host = urlparse(source_url).netloc.lower()
 
-    # Sitemap discovery is particularly important because senior-management
-    # pages are often several clicks away from the homepage.
-    for u in sitemap_urls(website):
-        if urlparse(u).netloc.lower()==urlparse(website).netloc.lower():
-            queue.append(u)
+    keywords = (
+        "chief", "executive", "monitoring", "finance", "section",
+        "s151", "officer", "management", "structure", "governance",
+        "constitution", "leadership", "accounts", "annual-governance"
+    )
 
-    queue=sorted(dict.fromkeys(queue),key=priority,reverse=True)
-    seen=set(); pages=[]; errors=[]
+    candidates = []
 
-    while queue and len(seen)<MAX_PAGES:
-        u=queue.pop(0)
-        if u in seen: continue
-        seen.add(u)
-        r,e=get(u)
-        if e:
-            errors.append({"url":u,"error":e})
+    for a in soup.find_all("a", href=True):
+        url = urljoin(source_url, a["href"])
+        parsed = urlparse(url)
+
+        if parsed.scheme not in ("http", "https"):
             continue
-        if is_pdf(u,r):
-            t=text_pdf(r.content); typ="pdf"
-        else:
-            t=text_html(r.text); typ="html"
-        pages.append({"url":u,"text":t,"type":typ})
-        if typ=="html":
-            new=links(u,r.text)
-            new.sort(key=priority,reverse=True)
-            queue.extend(x for x in new[:15] if x not in seen)
-        time.sleep(.12)
-    return pages,errors
+        if parsed.netloc.lower() != host:
+            continue
 
-def clean_name(n):
-    n=re.sub(r"\s+"," ",n).strip(" ,:;.-")
-    if n in BAD:return None
-    if any(n.lower()==x.lower() for x in BAD):return None
-    forbidden={"council","councillor","officer","executive","director","service",
-               "finance","monitoring","section","management","leadership",
-               "authority","committee","department","team","town","hall",
-               "corporate","governance"}
-    if any(w in forbidden for w in n.lower().split()):return None
-    return n
+        label = (a.get_text(" ", strip=True) + " " + url).lower()
+        score = sum(1 for word in keywords if word in label)
 
-def extract_role(pages,role):
-    role_re="|".join(ROLES[role]); findings=[]
-    patterns=[
-        rf"(?:{role_re})\s+(?:is|:|-|–|—)\s+(?P<name>{NAME})",
-        rf"(?P<name>{NAME})\s+(?:is\s+)?(?:-|–|—|:)\s*(?:{role_re})",
-        rf"(?P<name>{NAME}),\s*(?:who\s+is\s+)?(?:the\s+)?(?:{role_re})",
-        rf"(?P<name>{NAME})\s*\((?:{role_re})\)",
+        if score:
+            candidates.append((score, url))
+
+    candidates.sort(reverse=True)
+    return list(dict.fromkeys(url for _, url in candidates))[:MAX_FOLLOW_LINKS]
+
+def clean_name(value):
+    value = re.sub(r"\s+", " ", value).strip(" ,:;.-–—")
+
+    if not value:
+        return None
+
+    if value.lower() in {x.lower() for x in NON_NAMES}:
+        return None
+
+    forbidden = {
+        "council", "councillor", "officer", "executive", "director",
+        "service", "finance", "monitoring", "section", "management",
+        "leadership", "authority", "committee", "department", "team",
+        "car", "parks", "emergency", "planning", "responsible",
+    }
+
+    if any(word in forbidden for word in value.lower().split()):
+        return None
+
+    # Reject sentences masquerading as names.
+    if len(value.split()) > 4:
+        return None
+
+    return value
+
+def explicit_role_patterns(role):
+    role_regex = "|".join(ROLES[role])
+
+    # We deliberately require a role/name relationship.
+    return [
+        rf"(?:{role_regex})\s*(?:is|:|-|–|—)\s*(?P<name>{NAME})",
+        rf"(?P<name>{NAME})\s*(?:-|–|—|:|,)\s*(?:{role_regex})",
+        rf"(?P<name>{NAME})\s*,?\s*(?:who\s+is\s+)?(?:the\s+)?(?:{role_regex})",
+        rf"(?P<name>{NAME})\s*\((?:{role_regex})\)",
     ]
-    for p in pages:
-        t=p["text"]
-        if not t: continue
-        lines=[re.sub(r"\s+"," ",x).strip() for x in t.splitlines() if x.strip()]
-        for i,line in enumerate(lines):
-            if not re.search(role_re,line,re.I): continue
-            for pat in patterns:
-                m=re.search(pat,line,re.I)
-                if m:
-                    n=clean_name(m.groupdict().get("name", m.group(0)))
-                    if n:
-                        findings.append((n,p["url"],"same-line"))
-                        break
-            # Adjacent short line: e.g. heading "Chief Executive" followed
-            # by a person's name.
-            if not findings or findings[-1][1]!=p["url"]:
-                for near in lines[max(0,i-2):min(len(lines),i+3)]:
-                    if near==line or len(near.split())>4: continue
-                    m=re.fullmatch(NAME,near)
-                    if m:
-                        n=clean_name(m.groupdict().get("name", m.group(0)))
-                        if n: findings.append((n,p["url"],"adjacent-line")); break
-    if not findings:
-        return {"name":None,"source":None,"confidence":"Not found"}
-    counts={}
-    for n,_,_ in findings: counts[n]=counts.get(n,0)+1
-    best=max(counts,key=counts.get)
-    item=next(x for x in findings if x[0]==best)
-    return {"name":best,"source":item[1],"confidence":"Medium" if item[2]=="same-line" else "Low"}
 
-def scan(row):
-    print("\nScanning:",row["council"])
-    pages,errors=crawl(row)
-    result={"council":row["council"],"website":row["website"],"checked_at":now(),
-            "pages_checked":len(pages),"errors":errors,"roles":{}}
+def extract_from_text(text, role, source_url):
+    """
+    Return only strong matches.
+
+    We also support the common council table format:
+      Name | Position
+      Jane Smith | Chief Executive
+
+    and:
+      Chief Executive
+      Jane Smith
+    """
+    findings = []
+
+    lines = [
+        re.sub(r"\s+", " ", x).strip()
+        for x in text.splitlines()
+        if x.strip()
+    ]
+
+    role_regex = re.compile(
+        "|".join(ROLES[role]),
+        re.IGNORECASE,
+    )
+
+    patterns = explicit_role_patterns(role)
+
+    for i, line in enumerate(lines):
+        if not role_regex.search(line):
+            continue
+
+        # 1. Strong same-line relationship.
+        for pattern in patterns:
+            match = re.search(pattern, line, re.IGNORECASE)
+            if match:
+                candidate = clean_name(
+                    match.groupdict().get("name", match.group(0))
+                )
+                if candidate:
+                    findings.append((candidate, source_url, "explicit"))
+                    break
+
+        # 2. Table-like / heading relationship.
+        # Check only a very small neighbourhood and require the adjacent
+        # line to be a plausible name by itself.
+        for j in (i - 1, i + 1):
+            if j < 0 or j >= len(lines):
+                continue
+
+            nearby = lines[j]
+
+            if len(nearby.split()) > 4:
+                continue
+
+            match = re.fullmatch(NAME, nearby)
+            if match:
+                candidate = clean_name(match.group(0))
+                if candidate:
+                    findings.append((candidate, source_url, "adjacent"))
+
+        # 3. HTML tables can collapse to "Name Position". Try splitting on
+        # common separators only.
+        for sep in (" | ", " – ", " - ", "\t"):
+            if sep in line:
+                parts = [x.strip() for x in line.split(sep) if x.strip()]
+                if len(parts) == 2:
+                    if role_regex.search(parts[0]):
+                        candidate = clean_name(parts[1])
+                        if candidate:
+                            findings.append((candidate, source_url, "table"))
+                    elif role_regex.search(parts[1]):
+                        candidate = clean_name(parts[0])
+                        if candidate:
+                            findings.append((candidate, source_url, "table"))
+
+    if not findings:
+        return None
+
+    # Explicit matches outrank adjacent matches.
+    rank = {"explicit": 3, "table": 3, "adjacent": 1}
+    findings.sort(key=lambda x: rank.get(x[2], 0), reverse=True)
+
+    best = findings[0]
+
+    # If there are conflicting candidates, don't guess.
+    top_rank = rank.get(best[2], 0)
+    top = [x for x in findings if rank.get(x[2], 0) == top_rank]
+    names = {x[0].lower() for x in top}
+
+    if len(names) > 1:
+        return {
+            "name": None,
+            "source": source_url,
+            "confidence": "Conflicting evidence",
+            "candidates": sorted({x[0] for x in top}),
+        }
+
+    return {
+        "name": best[0],
+        "source": best[1],
+        "confidence": "High" if best[2] in ("explicit", "table") else "Medium",
+    }
+
+def load_sources():
+    if not SOURCES_FILE.exists():
+        raise FileNotFoundError(
+            "officer_sources.csv is missing. Upload it beside monitor.py."
+        )
+
+    with SOURCES_FILE.open("r", encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+def load_council_selection():
+    if not COUNCILS_FILE.exists():
+        return {}
+
+    with COUNCILS_FILE.open("r", encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.DictReader(f))
+
+    selected = {}
+    for row in rows:
+        if str(row.get("selected_for_search", "")).strip().lower() in {
+            "yes", "true", "1"
+        }:
+            selected[row["council"].strip()] = True
+    return selected
+
+def scan_council(source_row):
+    council = source_row["council"].strip()
+
+    print(f"\nScanning: {council}")
+
+    urls = [
+        source_row.get("primary_source", ""),
+        source_row.get("secondary_source", ""),
+        source_row.get("tertiary_source", ""),
+    ]
+    urls = [normalise(x) for x in urls if normalise(x)]
+
+    documents = []
+    errors = []
+
+    for url in urls:
+        doc = source_document(url)
+        documents.append(doc)
+
+        if doc.get("error"):
+            errors.append({
+                "url": url,
+                "error": doc["error"],
+                "used_proxy": doc.get("used_proxy", False),
+            })
+            print("  Source unavailable:", url)
+
+    # For HTML primary/secondary pages, follow only a few highly relevant
+    # links. This is a controlled expansion, not a broad website crawl.
+    for doc in list(documents):
+        if doc.get("kind") != "html" or not doc.get("text"):
+            continue
+
+        # Fetch the original page again only when we need its links.
+        response, error, _ = get_with_fallback(doc["url"])
+        if response is None:
+            continue
+
+        extra = relevant_links(doc["url"], response.text)
+        existing = {x["url"] for x in documents}
+
+        for url in extra:
+            if url in existing or len(documents) >= 15:
+                continue
+            extra_doc = source_document(url)
+            documents.append(extra_doc)
+            existing.add(url)
+
+    roles = {}
+
     for role in ROLES:
-        try:
-            result["roles"][role]=extract_role(pages,role)
-        except Exception as exc:
-            result["roles"][role]={
+        candidates = []
+
+        for doc in documents:
+            if not doc.get("text"):
+                continue
+
+            result = extract_from_text(
+                doc["text"],
+                role,
+                doc["url"],
+            )
+
+            if result:
+                candidates.append(result)
+
+        # Prefer High over Medium. Never promote a weak adjacent match if
+        # there is no strong evidence.
+        high = [x for x in candidates if x["confidence"] == "High"]
+        medium = [x for x in candidates if x["confidence"] == "Medium"]
+
+        if high:
+            # If multiple high-confidence sources disagree, flag it.
+            names = {x["name"].lower() for x in high if x.get("name")}
+            if len(names) == 1:
+                roles[role] = high[0]
+            else:
+                roles[role] = {
+                    "name": None,
+                    "source": high[0].get("source"),
+                    "confidence": "Conflicting evidence",
+                    "candidates": sorted({
+                        x["name"] for x in high if x.get("name")
+                    }),
+                }
+        elif medium:
+            names = {x["name"].lower() for x in medium if x.get("name")}
+            if len(names) == 1:
+                roles[role] = medium[0]
+            else:
+                roles[role] = {
+                    "name": None,
+                    "source": medium[0].get("source"),
+                    "confidence": "Conflicting evidence",
+                    "candidates": sorted({
+                        x["name"] for x in medium if x.get("name")
+                    }),
+                }
+        else:
+            roles[role] = {
                 "name": None,
                 "source": None,
-                "confidence": "Error",
-                "error": str(exc)
+                "confidence": "Not verified",
             }
-            print(" ",role,": ERROR -",exc)
-        else:
-            x=result["roles"][role]
-            print(" ",role,":",x["name"] or "Not found","[",x["confidence"],"]")
-    return result
+
+        item = roles[role]
+        print(
+            f"  {role}: {item.get('name') or 'Not verified'} "
+            f"[{item.get('confidence')}]"
+        )
+
+    return {
+        "council": council,
+        "checked_at": now(),
+        "sources_checked": [d["url"] for d in documents],
+        "errors": errors,
+        "roles": roles,
+    }
+
+def detect_changes(previous, current):
+    old = {
+        x.get("council"): x
+        for x in previous.get("councils", [])
+        if isinstance(x, dict)
+    }
+
+    changes = []
+
+    for council in current:
+        previous_council = old.get(council["council"])
+        if not previous_council:
+            continue
+
+        for role in ROLES:
+            before = previous_council.get("roles", {}).get(role, {})
+            after = council.get("roles", {}).get(role, {})
+
+            old_name = before.get("name")
+            new_name = after.get("name")
+
+            if not old_name or not new_name:
+                continue
+
+            if old_name.lower() == new_name.lower():
+                continue
+
+            # Only a high-confidence new result can trigger a potential
+            # change. Weak evidence must be reviewed manually.
+            if after.get("confidence") != "High":
+                continue
+
+            changes.append({
+                "detected_at": now(),
+                "council": council["council"],
+                "role": role,
+                "previous_officer": old_name,
+                "current_officer": new_name,
+                "previous_source": before.get("source"),
+                "current_source": after.get("source"),
+                "status": "Potential change - review source",
+            })
+
+    return changes
 
 def main():
-    print("="*60);print("LOCAL AUTHORITY STATUTORY OFFICER MONITOR v3");print("="*60)
-    with COUNCILS.open("r",encoding="utf-8-sig",newline="") as f:
-        rows=list(csv.DictReader(f))
-    selected=[r for r in rows if r.get("website","").strip() and r.get("selected_for_search","").strip().lower() in {"yes","true","1"}]
-    if not selected:
-        selected=[r for r in rows if r.get("website","").strip()]
-    print("\nCouncils in CSV:",len(rows));print("Councils selected:",len(selected))
+    print("=" * 60)
+    print("LOCAL AUTHORITY STATUTORY OFFICER MONITOR v5")
+    print("=" * 60)
 
-    current=[scan(r) for r in selected]
-    previous=load(OFFICERS,{"councils":[]})
-    old={x.get("council"):x for x in previous.get("councils",[]) if isinstance(x,dict)}
+    sources = load_sources()
+    selected = load_council_selection()
 
-    changes=[]
-    for c in current:
-        o=old.get(c["council"])
-        if not o: continue
-        for role in ROLES:
-            a=o.get("roles",{}).get(role,{}).get("name")
-            b=c.get("roles",{}).get(role,{}).get("name")
-            conf=c.get("roles",{}).get(role,{}).get("confidence")
-            if a and b and a.lower()!=b.lower() and conf=="Medium":
-                changes.append({"detected_at":now(),"council":c["council"],"role":role,
-                                 "previous_officer":a,"current_officer":b,
-                                 "previous_source":o.get("roles",{}).get(role,{}).get("source"),
-                                 "current_source":c.get("roles",{}).get(role,{}).get("source"),
-                                 "confidence":"Potential change"})
+    # v5 is deliberately limited to the first 10 source definitions.
+    if selected:
+        sources = [
+            row for row in sources
+            if row["council"].strip() in selected
+        ]
 
-    # First run creates a baseline and does NOT report changes.
-    save(OFFICERS,{"generated_at":now(),"councils":current})
-    save(RESULTS,{"generated_at":now(),"councils_searched":len(selected),
-                  "results":current,"potential_changes":changes})
-    hist=load(HISTORY,{"changes":[]});hist.setdefault("changes",[]).extend(changes);save(HISTORY,hist)
+    print(f"\nSource configurations: {len(sources)}")
 
-    print("\nSEARCH COMPLETE")
-    print("Potential changes:",len(changes))
-    print("Current officer data:",OFFICERS)
-    print("Search results:",RESULTS)
+    current = []
 
-if __name__=="__main__": main()
+    for row in sources:
+        try:
+            current.append(scan_council(row))
+        except Exception as exc:
+            print(f"  ERROR: {exc}")
+            current.append({
+                "council": row["council"],
+                "checked_at": now(),
+                "sources_checked": [],
+                "errors": [{"error": str(exc)}],
+                "roles": {
+                    role: {
+                        "name": None,
+                        "source": None,
+                        "confidence": "Error",
+                    }
+                    for role in ROLES
+                },
+            })
+
+    previous = load_json(
+        OFFICERS_FILE,
+        {"generated_at": None, "councils": []},
+    )
+
+    changes = detect_changes(previous, current)
+
+    # First run establishes a baseline. It does not call initial differences
+    # "changes".
+    if not previous.get("councils"):
+        changes = []
+
+    save_json(
+        OFFICERS_FILE,
+        {
+            "generated_at": now(),
+            "monitor_version": "v5",
+            "councils": current,
+        },
+    )
+
+    save_json(
+        RESULTS_FILE,
+        {
+            "generated_at": now(),
+            "monitor_version": "v5",
+            "councils_searched": len(current),
+            "results": current,
+            "potential_changes": changes,
+        },
+    )
+
+    history = load_json(HISTORY_FILE, {"changes": []})
+    history.setdefault("changes", []).extend(changes)
+    save_json(HISTORY_FILE, history)
+
+    print("\n" + "=" * 60)
+    print("SEARCH COMPLETE")
+    print(f"Councils searched: {len(current)}")
+    print(f"Potential changes: {len(changes)}")
+    print("=" * 60)
+
+if __name__ == "__main__":
+    main()
