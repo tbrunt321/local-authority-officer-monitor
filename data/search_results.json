@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-21T09:56:27+00:00",
+  "generated_at": "2026-08-28T21:59:13+00:00",
   "monitor_version": "v6",
   "councils_searched": 10,
   "results": [
     {
       "council": "Adur District Council",
-      "checked_at": "2026-08-21T09:55:05+00:00",
+      "checked_at": "2026-08-28T21:57:30+00:00",
       "roles": {
         "Chief Executive": {
           "name": "is made up of",
@@ -37,7 +37,7 @@
     },
     {
       "council": "Amber Valley Borough Council",
-      "checked_at": "2026-08-21T09:55:11+00:00",
+      "checked_at": "2026-08-28T21:57:36+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -66,13 +66,14 @@
     },
     {
       "council": "Arun District Council",
-      "checked_at": "2026-08-21T09:55:25+00:00",
+      "checked_at": "2026-08-28T21:57:47+00:00",
       "roles": {
         "Chief Executive": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified",
-          "status": "Not verified"
+          "name": "Dawn Hudd",
+          "source": "https://www.arun.gov.uk/our-management-teams",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Dawn Hudd - Chief Executive"
         },
         "Monitoring Officer": {
           "name": null,
@@ -91,20 +92,11 @@
         "https://www.arun.gov.uk/our-management-teams",
         "https://www.arun.gov.uk/constitution"
       ],
-      "errors": [
-        {
-          "url": "https://www.arun.gov.uk/our-management-teams",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        },
-        {
-          "url": "https://www.arun.gov.uk/constitution",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        }
-      ]
+      "errors": []
     },
     {
       "council": "Ashfield District Council",
-      "checked_at": "2026-08-21T09:55:31+00:00",
+      "checked_at": "2026-08-28T21:57:53+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Theresa Hodgkinson",
@@ -139,7 +131,7 @@
     },
     {
       "council": "Ashford Borough Council",
-      "checked_at": "2026-08-21T09:55:40+00:00",
+      "checked_at": "2026-08-28T21:58:00+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -169,7 +161,7 @@
     },
     {
       "council": "Babergh District Council",
-      "checked_at": "2026-08-21T09:55:47+00:00",
+      "checked_at": "2026-08-28T21:58:07+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Arthur Charvonia",
@@ -199,7 +191,7 @@
     },
     {
       "council": "Barnsley Borough Council",
-      "checked_at": "2026-08-21T09:55:56+00:00",
+      "checked_at": "2026-08-28T21:58:18+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -212,7 +204,7 @@
           "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
           "confidence": "High",
           "status": "Confirmed",
-          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nTemporary closures at some of our household waste recycling centres\nProblems with our self-service portal - Thursday 20 August\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCouncil and democracy\nCouncil structure and leadership team\nGo back\nBack"
+          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nTemporary closures at some of our household waste recycling centres\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCouncil and democracy\nCouncil structure and leadership team\nGo back\nBack to Council and democracy\nCouncil structure and leadership "
         },
         "Section 151 Officer": {
           "name": null,
@@ -230,7 +222,7 @@
     },
     {
       "council": "Basildon Borough Council",
-      "checked_at": "2026-08-21T09:56:11+00:00",
+      "checked_at": "2026-08-28T21:58:38+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -259,7 +251,7 @@
     },
     {
       "council": "London Borough of Barking and Dagenham",
-      "checked_at": "2026-08-21T09:56:19+00:00",
+      "checked_at": "2026-08-28T21:58:54+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -288,7 +280,7 @@
     },
     {
       "council": "London Borough of Barnet",
-      "checked_at": "2026-08-21T09:56:27+00:00",
+      "checked_at": "2026-08-28T21:59:13+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
