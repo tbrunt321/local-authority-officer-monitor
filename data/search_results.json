@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-18T08:04:51+00:00",
+  "generated_at": "2026-09-25T13:06:58+00:00",
   "monitor_version": "v6",
   "councils_searched": 10,
   "results": [
     {
       "council": "Adur District Council",
-      "checked_at": "2026-09-18T08:03:18+00:00",
+      "checked_at": "2026-09-25T13:05:36+00:00",
       "roles": {
         "Chief Executive": {
           "name": "is made up of",
@@ -37,7 +37,7 @@
     },
     {
       "council": "Amber Valley Borough Council",
-      "checked_at": "2026-09-18T08:03:25+00:00",
+      "checked_at": "2026-09-25T13:05:42+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -66,13 +66,14 @@
     },
     {
       "council": "Arun District Council",
-      "checked_at": "2026-09-18T08:03:42+00:00",
+      "checked_at": "2026-09-25T13:05:52+00:00",
       "roles": {
         "Chief Executive": {
-          "name": null,
-          "source": null,
-          "confidence": "Not verified",
-          "status": "Not verified"
+          "name": "Dawn Hudd",
+          "source": "https://www.arun.gov.uk/our-management-teams",
+          "confidence": "High",
+          "status": "Confirmed",
+          "evidence": "Dawn Hudd - Chief Executive"
         },
         "Monitoring Officer": {
           "name": null,
@@ -91,20 +92,11 @@
         "https://www.arun.gov.uk/our-management-teams",
         "https://www.arun.gov.uk/constitution"
       ],
-      "errors": [
-        {
-          "url": "https://www.arun.gov.uk/our-management-teams",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        },
-        {
-          "url": "https://www.arun.gov.uk/constitution",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        }
-      ]
+      "errors": []
     },
     {
       "council": "Ashfield District Council",
-      "checked_at": "2026-09-18T08:03:48+00:00",
+      "checked_at": "2026-09-25T13:05:58+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Theresa Hodgkinson",
@@ -139,7 +131,7 @@
     },
     {
       "council": "Ashford Borough Council",
-      "checked_at": "2026-09-18T08:03:57+00:00",
+      "checked_at": "2026-09-25T13:06:07+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -169,7 +161,7 @@
     },
     {
       "council": "Babergh District Council",
-      "checked_at": "2026-09-18T08:04:04+00:00",
+      "checked_at": "2026-09-25T13:06:13+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Arthur Charvonia",
@@ -199,7 +191,7 @@
     },
     {
       "council": "Barnsley Borough Council",
-      "checked_at": "2026-09-18T08:04:19+00:00",
+      "checked_at": "2026-09-25T13:06:24+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -230,7 +222,7 @@
     },
     {
       "council": "Basildon Borough Council",
-      "checked_at": "2026-09-18T08:04:33+00:00",
+      "checked_at": "2026-09-25T13:06:42+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -259,7 +251,7 @@
     },
     {
       "council": "London Borough of Barking and Dagenham",
-      "checked_at": "2026-09-18T08:04:43+00:00",
+      "checked_at": "2026-09-25T13:06:51+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -288,7 +280,7 @@
     },
     {
       "council": "London Borough of Barnet",
-      "checked_at": "2026-09-18T08:04:51+00:00",
+      "checked_at": "2026-09-25T13:06:58+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
