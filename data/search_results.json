@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-02T14:18:35+00:00",
+  "generated_at": "2026-10-09T14:47:47+00:00",
   "monitor_version": "v6",
   "councils_searched": 10,
   "results": [
     {
       "council": "Adur District Council",
-      "checked_at": "2026-10-02T14:17:04+00:00",
+      "checked_at": "2026-10-09T14:46:19+00:00",
       "roles": {
         "Chief Executive": {
           "name": "is made up of",
@@ -37,7 +37,7 @@
     },
     {
       "council": "Amber Valley Borough Council",
-      "checked_at": "2026-10-02T14:17:11+00:00",
+      "checked_at": "2026-10-09T14:46:26+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -66,7 +66,7 @@
     },
     {
       "council": "Arun District Council",
-      "checked_at": "2026-10-02T14:17:21+00:00",
+      "checked_at": "2026-10-09T14:46:33+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Dawn Hudd",
@@ -96,7 +96,7 @@
     },
     {
       "council": "Ashfield District Council",
-      "checked_at": "2026-10-02T14:17:28+00:00",
+      "checked_at": "2026-10-09T14:46:40+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Theresa Hodgkinson",
@@ -131,7 +131,7 @@
     },
     {
       "council": "Ashford Borough Council",
-      "checked_at": "2026-10-02T14:17:37+00:00",
+      "checked_at": "2026-10-09T14:46:50+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -161,7 +161,7 @@
     },
     {
       "council": "Babergh District Council",
-      "checked_at": "2026-10-02T14:17:44+00:00",
+      "checked_at": "2026-10-09T14:46:57+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Arthur Charvonia",
@@ -191,7 +191,7 @@
     },
     {
       "council": "Barnsley Borough Council",
-      "checked_at": "2026-10-02T14:17:56+00:00",
+      "checked_at": "2026-10-09T14:47:08+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -204,7 +204,7 @@
           "source": "https://www.barnsley.gov.uk/services/council-and-democracy/council-structure-and-leadership-team/",
           "confidence": "High",
           "status": "Confirmed",
-          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nDisruptions to business waste collections\nTemporary closures at some of our household waste recycling centres\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCouncil and democracy\nCouncil structure and leadership team\nGo back\nBack to Council and d"
+          "evidence": "Council structure and leadership team\nSkip to content\nMenu\nSearch\nBSL\nTranslate\nAlerts\nImportant alerts\nDisruptions to bin collections\nDisruptions to business waste collections\nTemporary closures at some of our household waste recycling centres\nTraffic delays around Worsbrough Household Recycling Centre - Friday 9 October 2026\nRoadworks and closures\nPublic notices\nSearch\nSearch\nMy account\nMy account\nSign in to My Bentax account\nSign in to other accounts\nServices\nYou are here:\nHome\nServices\nCounc"
         },
         "Section 151 Officer": {
           "name": null,
@@ -222,7 +222,7 @@
     },
     {
       "council": "Basildon Borough Council",
-      "checked_at": "2026-10-02T14:18:16+00:00",
+      "checked_at": "2026-10-09T14:47:28+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -251,7 +251,7 @@
     },
     {
       "council": "London Borough of Barking and Dagenham",
-      "checked_at": "2026-10-02T14:18:26+00:00",
+      "checked_at": "2026-10-09T14:47:38+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -280,7 +280,7 @@
     },
     {
       "council": "London Borough of Barnet",
-      "checked_at": "2026-10-02T14:18:35+00:00",
+      "checked_at": "2026-10-09T14:47:47+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
