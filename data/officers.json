@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-23T12:57:56+00:00",
+  "generated_at": "2026-10-30T14:41:54+00:00",
   "monitor_version": "v6",
   "councils": [
     {
       "council": "Adur District Council",
-      "checked_at": "2026-10-23T12:56:40+00:00",
+      "checked_at": "2026-10-30T14:40:33+00:00",
       "roles": {
         "Chief Executive": {
           "name": "is made up of",
@@ -36,7 +36,7 @@
     },
     {
       "council": "Amber Valley Borough Council",
-      "checked_at": "2026-10-23T12:56:46+00:00",
+      "checked_at": "2026-10-30T14:40:39+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -65,7 +65,7 @@
     },
     {
       "council": "Arun District Council",
-      "checked_at": "2026-10-23T12:56:54+00:00",
+      "checked_at": "2026-10-30T14:40:47+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Dawn Hudd",
@@ -95,7 +95,7 @@
     },
     {
       "council": "Ashfield District Council",
-      "checked_at": "2026-10-23T12:56:59+00:00",
+      "checked_at": "2026-10-30T14:40:53+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Theresa Hodgkinson",
@@ -130,7 +130,7 @@
     },
     {
       "council": "Ashford Borough Council",
-      "checked_at": "2026-10-23T12:57:07+00:00",
+      "checked_at": "2026-10-30T14:41:02+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -160,7 +160,7 @@
     },
     {
       "council": "Babergh District Council",
-      "checked_at": "2026-10-23T12:57:12+00:00",
+      "checked_at": "2026-10-30T14:41:09+00:00",
       "roles": {
         "Chief Executive": {
           "name": "Arthur Charvonia",
@@ -190,7 +190,7 @@
     },
     {
       "council": "Barnsley Borough Council",
-      "checked_at": "2026-10-23T12:57:22+00:00",
+      "checked_at": "2026-10-30T14:41:20+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -226,7 +226,7 @@
     },
     {
       "council": "Basildon Borough Council",
-      "checked_at": "2026-10-23T12:57:39+00:00",
+      "checked_at": "2026-10-30T14:41:38+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -255,7 +255,7 @@
     },
     {
       "council": "London Borough of Barking and Dagenham",
-      "checked_at": "2026-10-23T12:57:50+00:00",
+      "checked_at": "2026-10-30T14:41:47+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
@@ -284,7 +284,7 @@
     },
     {
       "council": "London Borough of Barnet",
-      "checked_at": "2026-10-23T12:57:56+00:00",
+      "checked_at": "2026-10-30T14:41:54+00:00",
       "roles": {
         "Chief Executive": {
           "name": null,
